@@ -11,7 +11,7 @@ Retrieve accidents for a given area.
 - lat : latitude
 - lon : longitude
 - rad : radius
- 
+
 #### Response
 ```json
 [
