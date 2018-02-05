@@ -2,7 +2,7 @@
 
 ## API Description
 
-###`GET /api/accidents/`
+### `GET /api/accidents/`
 
 #### User-Permission: **PUBLIC**
 Retrieve accidents for a given area.
