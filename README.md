@@ -20,7 +20,7 @@ Retrieve accidents for a given area.
         "lat": 10.25154,
         "lon": 40.25544,
         "placeName": "Place saint jean",
-        "seriousness": 2
+        "seriousness": 3
     }
 ]
 ```
@@ -49,7 +49,7 @@ Create a new accident
     "lat": 10.25154,
     "lon": 40.25544,
     "placeName": "Place saint jean",
-    "seriousness": 2
+    "seriousness": 3
 }
 ```
 
