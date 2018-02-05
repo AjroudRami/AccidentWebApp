@@ -53,6 +53,10 @@ Create a new accident
 }
 ```
 
+### `DELETE /api/accident/{accident_id}`
+#### User-Permission: **MANAGER**
+Delete an accident from the database
+
 ### `GET /api/accident/{accident_id}/comments`
 #### User-Permission: **PUBLIC**
 
