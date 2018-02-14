@@ -23,11 +23,9 @@ module.exports = {
             accidentDB.insert(accident)
                 .then(function (res) {
                     console.log(res);
-                    console.log('aaaaa');
                     resolve(res);
                 }).catch(function (err) {
                 console.log(err);
-                console.log("ppppp");
                 reject(err);
             })
         })
@@ -35,7 +33,18 @@ module.exports = {
     },
 
     delete: function (accidentId) {
-        //TODO
+        return new Promise(function (resolve, reject) {
+            console.log("Attempt deletion");
+            accidentDB.delete(accidentId)
+                .then(function (res) {
+                    resolve(res);
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    console.log("You suck !");
+                    reject(err);
+                })
+        })
     },
 
     getComments: function (accidentID) {

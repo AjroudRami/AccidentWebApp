@@ -27,7 +27,8 @@ module.exports = {
                         placeName: accident.placeName,
                         loc: accident.loc,
                         seriousness: accident.seriousness,
-                        id: accident._id
+                        id: accident._id,
+                        date: accident.date
                     };
                     resolve(res);
                 })
@@ -71,6 +72,25 @@ module.exports = {
                     reject(err);
                 })
         });
+    },
+
+    delete: function (accidentId) {
+        return new Promise(function (resolve, reject) {
+            mongoose.connect(url)
+                .then(function (result) {
+                    Accident.find({_id: accidentId}).remove().exec()
+                        .then(function (result) {
+                            console.log('done');
+                            resolve(result);
+                        })
+                        .catch(function (err) {
+                            console.log('err' + err);
+                            reject(err)
+                        });
+                }).catch(function (err) {
+                reject(err);
+            })
+        });
     }
 };
 
@@ -82,7 +102,8 @@ var filterAccidentList = function (list) {
             placeName: accident.placeName,
             loc: accident.loc,
             seriousness: accident.seriousness,
-            id: accident._id
+            id: accident._id,
+            date: accident.date
         };
         result.push(filtered);
     }

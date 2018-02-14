@@ -10,7 +10,11 @@ var AccidentSchema = new Schema({
         type: String,
         default: "Unknown place"
     },
-    seriousness: Number
+    seriousness: Number,
+    date: {
+        type: Date,
+        default: Date.now()
+    }
 });
 
 module.exports = mongoose.model('Accident', AccidentSchema);

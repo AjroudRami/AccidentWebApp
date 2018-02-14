@@ -22,15 +22,26 @@ router.post('/', function(req, res, err) {
         })
         .catch(function (err) {
             console.log(err);
-            res.status = 500;
-            res.send(err);
+            res.status(500).json({message: err});
         });
 });
 
 
 router.delete('/:accidentID', function(req, res, err) {
-    accidentController.delete(req.params.accidentID);
-    res.send({id:req.params.accidentID});
+    accidentController.delete(req.params.accidentID)
+        .then(function (result) {
+            console.log(result);
+            if (result.n == 0) {
+                res.status(404).json(
+                    {message: "not found, not deleted Ehhhré :D"});
+            } else {
+                res.send(result);
+            }
+        })
+        .catch(function (err) {
+            res.send(err);
+            console.log(err);
+        });
 });
 
 router.get('/:accidentID/comments', function (req, res, err) {
