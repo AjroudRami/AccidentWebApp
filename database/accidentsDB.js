@@ -1,5 +1,5 @@
 var Promise = require('promise');
-var Accident = require('./model/Accident');
+var Accident = require('./model/AccidentSchema');
 var url = "mongodb://novagen.fr:27017/web";
 var collectionName = 'accidents';
 var dbName = 'web';
