@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var accidentController = require('../controllers/accidentsController');
+var mongoose = require('mongoose');
+
 module.exports = router;
 
 router.get('/', function(req, res, err) {
@@ -45,10 +47,42 @@ router.delete('/:accidentID', function(req, res, err) {
 });
 
 router.get('/:accidentID/comments', function (req, res, err) {
-    res.send(accidentController.getComments(req.params.accidentID));
+    accidentController.getComments(req.params.accidentID)
+        .then(function (result) {
+            console.log(result);
+            res.send(result);
+        })
+        .catch(function (err) {
+            console.log("Error" + err);
+            res.send(err);
+        });
 });
 
 router.post('/:accidentID/comments', function (req, res, err) {
-    res.send(accidentController.addComments(req.body));
+    console.log("Getting post request to add a comment");
+    try {
+        var comment = req.body;
+        comment.accidentId = new mongoose.Types.ObjectId(req.params.accidentID);
+        comment.userId = new mongoose.Types.ObjectId(comment.userId);
+        console.log(comment);
+    } catch (err) {
+        console.log(err);
+    }
+    accidentController.addComments(comment)
+        .then(function (result) {
+            console.log(result);
+            res.send(result);
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.send(err);
+        })
 });
 
+var handleError = function (error) {
+
+};
+
+var handleOK = function (result) {
+
+};

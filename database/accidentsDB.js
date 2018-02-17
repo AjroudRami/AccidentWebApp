@@ -7,7 +7,7 @@ var limit = 3;
 var mongoose = require('mongoose');
 
 module.exports = {
-    insert: function (acc) {
+    insertAccident: function (acc) {
         return new Promise(function (resolve, reject) {
             mongoose.connect(url)
                 .then(function (result) {
@@ -39,7 +39,7 @@ module.exports = {
         });
     },
 
-    get: function (lon, lat, radius) {
+    getAccidents: function (lon, lat, radius) {
         return new Promise(function (resolve, reject) {
             // get the max distance or set it to 8 kilometers
             var maxDistance = radius || 8;
@@ -74,7 +74,7 @@ module.exports = {
         });
     },
 
-    delete: function (accidentId) {
+    deleteAccident: function (accidentId) {
         return new Promise(function (resolve, reject) {
             mongoose.connect(url)
                 .then(function (result) {

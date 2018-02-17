@@ -1,4 +1,5 @@
 var accidentDB = require('../database/accidentsDB');
+var commentDB = require('../database/commentsDB');
 var Promise = require('promise');
 
 module.exports = {
@@ -6,7 +7,7 @@ module.exports = {
     get: function (lon, lat, radius) {
         return new Promise(function (resolve, reject) {
 
-            accidentDB.get(lon, lat, radius)
+            accidentDB.getAccidents(lon, lat, radius)
                 .then(function (result) {
                     resolve(result)
                 })
@@ -20,7 +21,7 @@ module.exports = {
 
     create: function (accident) {
         return new Promise(function (resolve, reject) {
-            accidentDB.insert(accident)
+            accidentDB.insertAccident(accident)
                 .then(function (res) {
                     console.log(res);
                     resolve(res);
@@ -35,7 +36,7 @@ module.exports = {
     delete: function (accidentId) {
         return new Promise(function (resolve, reject) {
             console.log("Attempt deletion");
-            accidentDB.delete(accidentId)
+            accidentDB.deleteAccident(accidentId)
                 .then(function (res) {
                     resolve(res);
                 })
@@ -48,11 +49,29 @@ module.exports = {
     },
 
     getComments: function (accidentID) {
-        //TODO
+        return new Promise(function (resolve, reject) {
+            console.log("Getting comments for " + accidentID);
+            commentDB.listComments(accidentID)
+                .then(function (result) {
+                    resolve(result)
+                })
+                .catch(function (err) {
+                    reject(err)
+                })
+        })
     },
 
     addComments: function (comment) {
-        //TODO
+        return new Promise(function (resolve, reject) {
+            console.log('Adding comment ' + comment);
+            commentDB.addComment(comment)
+                .then(function (result) {
+                    resolve(result)
+                })
+                .catch(function (err) {
+                    reject(err)
+                })
+        })
     }
 
 };
