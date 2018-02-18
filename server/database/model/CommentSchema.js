@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var CommentSchema = new Schema({
     accidentId: Schema.Types.ObjectId,
-    userId: Schema.Types.ObjectId,
+    userId: String,
     title: String,
     message: String,
     date: {

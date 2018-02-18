@@ -3,7 +3,7 @@
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-    <b-navbar-brand href="#">Ma carte</b-navbar-brand>
+    <b-navbar-brand><router-link to="/">Ma carte</router-link></b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
 

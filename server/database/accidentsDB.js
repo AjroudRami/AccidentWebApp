@@ -1,6 +1,6 @@
 var Promise = require('promise');
 var Accident = require('./model/AccidentSchema');
-var url = "mongodb://novagen.fr:27017/web";
+var url = "mongodb://database:27017/web";
 var collectionName = 'accidents';
 var dbName = 'web';
 var limit = 3;
@@ -15,7 +15,6 @@ module.exports = {
                     accident.placeName = acc.placeName;
                     accident.loc = acc.loc;
                     accident.seriousness = acc.seriousness;
-                    console.log();
                     accident.save(function (err) {
                         if (err) {
                             console.log(err);
@@ -44,16 +43,12 @@ module.exports = {
             // get the max distance or set it to 8 kilometers
             var maxDistance = radius || 8;
 
-            // we need to convert the distance to radians
-            // the raduis of Earth is approximately 6371 kilometers
-            maxDistance /= 6371;
-
             mongoose.connect(url)
                 .then(function (result) {
                     var query = Accident.find({
                         'loc': {
                             $near: [lon, lat],
-                            $maxDistance: 10
+                            $maxDistance: maxDistance
                         }
                     }).limit(limit);
 
