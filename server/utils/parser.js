@@ -128,7 +128,15 @@ var cleanCSVFile = function(csvFilePath) {
                     + csvrow.jour + "T"
                     + csvrow.hrmn.substring(0, 2) + ":" + csvrow.hrmn.substring(2, 4) + ":00");
 
-
+                insert(element)
+                    .then(function (result) {
+                        console.log(result);
+                        res.send(result);
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                        res.status(500).json({message: err});
+                    });
 
                 csvData.accidents.push(element);
             }

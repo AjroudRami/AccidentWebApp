@@ -1,3 +1,8 @@
 node_modules
 .idea
 package-lock\.json
+
+data/
+caracteristiques_2016.csv
+accidents.json
+
