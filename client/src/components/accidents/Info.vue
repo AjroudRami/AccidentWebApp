@@ -13,6 +13,9 @@
 .form {
   margin: 20px 0px 50px 50px;
 }
+h1 {
+  margin-left: 20px;
+}
 </style>
 <template>
   <div>
