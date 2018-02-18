@@ -4,6 +4,19 @@ var Promise = require('promise');
 
 module.exports = {
 
+    getById: function (accidentId) {
+        return new Promise(function (resolve, reject) {
+            accidentDB.getAccidentById(accidentId)
+                .then(function (result) {
+                    resolve(result)
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    reject(err)
+                })
+        })
+    },
+
     get: function (lon, lat, radius) {
         return new Promise(function (resolve, reject) {
 

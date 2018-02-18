@@ -38,6 +38,29 @@ module.exports = {
         });
     },
 
+    getAccidentById: function (accidentID) {
+        return new Promise(function (resolve, reject) {
+            mongoose.connect(url)
+                .then(function (result) {
+                    Accident.findOne({_id: accidentID}).limit(1).exec()
+                        .then(function (result) {
+                            console.log('done');
+                            if (result != undefined) {
+                                resolve(result);
+                            } else {
+                                resolve([])
+                            }
+                        })
+                        .catch(function (err) {
+                            console.log('err' + err);
+                            reject(err)
+                        });
+                }).catch(function (err) {
+                reject(err);
+            })
+        })
+    },
+
     getAccidents: function (lon, lat, radius) {
         return new Promise(function (resolve, reject) {
             // get the max distance or set it to 8 kilometers
@@ -86,6 +109,39 @@ module.exports = {
                 reject(err);
             })
         });
+    },
+
+    insertAccidentFromJson: function (acc) {
+        return new Promise(function (resolve, reject) {
+            mongoose.connect(url)
+                .then(function (result) {
+                    var accident = new Accident();
+                    accident.placeName = acc.placeName;
+                    accident.loc = acc.loc;
+                    accident.seriousness = acc.seriousness;
+                    accident.date = acc.date;
+                    console.log();
+                    accident.save(function (err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        console.log("inserted :");
+                        console.log(accident);
+                    });
+                    var res = {
+                        placeName: accident.placeName,
+                        loc: accident.loc,
+                        seriousness: accident.seriousness,
+                        id: accident._id,
+                        date: accident.date
+                    };
+                    resolve(res);
+                })
+                .catch(function (err) {
+                    reject(err);
+                    console.log(err);
+                });
+        });
     }
 };
 
@@ -103,4 +159,15 @@ var filterAccidentList = function (list) {
         result.push(filtered);
     }
     return result;
+};
+
+var filterAccident = function (accident) {
+    var filtered = {
+        placeName: accident.placeName,
+        loc: accident.loc,
+        seriousness: accident.seriousness,
+        id: accident._id,
+        date: accident.date
+    };
+    return filtered;
 };

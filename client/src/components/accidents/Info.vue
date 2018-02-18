@@ -17,6 +17,7 @@
 <template>
   <div>
     <div v-if="crash">
+      <h1>Accident sur {{crash.placeName}} (<i>Niv. {{crash.seriousness}}</i>)</h1>
       <b-card>
         <b-media v-for="comment in crash.comments" :key="comment.id">
           <b-img slot="aside" blank blank-color="#ccc" width="64" alt="placeholder" />
@@ -123,17 +124,20 @@ export default {
   },
   mounted: function () {
     this.id = this.$route.params.id
-    // GET ACCIDENT
-    api.get(`/accidents/${this.id}/comments`).then(res => {
+    api.get(`/accidents/${this.id}`).then(res => {
       this.crash = {
-        lat: 43.615552,
-        lng: 7.071875,
-        comments: res.data
+        lng: res.data.loc[0],
+        lat: res.data.loc[1],
+        seriousness: res.data.seriousness,
+        placeName: res.data.placeName,
+        comments: []
       }
-    }).catch(err => {
-      console.error(err)
-      this.$router.push('/')
-    })
+      // GET ACCIDENT
+      api.get(`/accidents/${this.id}/comments`).then(res => {
+        this.crash.comments = res.data
+      }).catch(err => this.$router.push('/'))
+    }).catch(err => this.$router.push('/'))
+
   }
 }
 </script>
