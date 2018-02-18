@@ -46,7 +46,11 @@ module.exports = {
                     Accident.find({_id: accidentID}).limit(1).exec()
                         .then(function (result) {
                             console.log('done');
-                            resolve(result);
+                            if (result != undefined) {
+                                resolve(filterAccidentList(result));
+                            } else {
+                                resolve([])
+                            }
                         })
                         .catch(function (err) {
                             console.log('err' + err);
@@ -160,4 +164,15 @@ var filterAccidentList = function (list) {
         result.push(filtered);
     }
     return result;
+};
+
+var filterAccident = function (accident) {
+    var filtered = {
+        placeName: accident.placeName,
+        loc: accident.loc,
+        seriousness: accident.seriousness,
+        id: accident._id,
+        date: accident.date
+    };
+    return filtered;
 };
