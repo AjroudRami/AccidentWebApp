@@ -91,6 +91,39 @@ module.exports = {
                 reject(err);
             })
         });
+    },
+
+    insertAccidentFromJson: function (acc) {
+        return new Promise(function (resolve, reject) {
+            mongoose.connect(url)
+                .then(function (result) {
+                    var accident = new Accident();
+                    accident.placeName = acc.placeName;
+                    accident.loc = acc.loc;
+                    accident.seriousness = acc.seriousness;
+                    accident.date = acc.date;
+                    console.log();
+                    accident.save(function (err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        console.log("inserted :");
+                        console.log(accident);
+                    });
+                    var res = {
+                        placeName: accident.placeName,
+                        loc: accident.loc,
+                        seriousness: accident.seriousness,
+                        id: accident._id,
+                        date: accident.date
+                    };
+                    resolve(res);
+                })
+                .catch(function (err) {
+                    reject(err);
+                    console.log(err);
+                });
+        });
     }
 };
 
