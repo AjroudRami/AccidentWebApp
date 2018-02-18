@@ -4,4 +4,4 @@ COPY package.json /app
 RUN npm install
 COPY ../ /app
 CMD npm start app.js
-EXPOSE 8081
+EXPOSE 8080

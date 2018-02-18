@@ -1,0 +1,18 @@
+version: "3.2"
+
+services:
+
+  database:
+    container_name: database
+    image: mongo:3.0
+    volumes:
+      - ./data:/data/db
+
+  server:
+    container_name: server
+    build:
+      context: ./server
+    depends_on:
+      - database
+    ports:
+      - "8181:8080"
