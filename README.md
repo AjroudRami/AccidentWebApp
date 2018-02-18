@@ -17,7 +17,7 @@ Retrieve accidents for a given area.
 [
     { 
         "id": "1235ae46b",
-        "loc": [ 10.25154, 40.25544],
+        "loc": [ 10.25154, 40.25544],    //loc is [longitude, lattitude] couple
         "placeName": "Place saint jean",
         "seriousness": 3,
         "date": "2018-02-15T14:24:02.216Z"
@@ -34,7 +34,7 @@ Create a new accident
 
 ```json
 { 
-    "loc": [10.25154, 40.25544],
+    "loc": [10.25154, 40.25544],    //loc is [longitude, lattitude] couple
     "placeName": "Place saint jean",
     "seriousness": 2
 }
@@ -45,7 +45,7 @@ Create a new accident
 ```json
 { 
     "id": "eb1235a46",
-    "loc": [10.25154, 40.25544],
+    "loc": [10.25154, 40.25544],     //loc is [longitude, lattitude] couple
     "placeName": "Place saint jean",
     "seriousness": 3,
     "date": "2018-02-15T14:24:02.216Z"
