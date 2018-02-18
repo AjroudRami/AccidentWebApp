@@ -39,6 +39,25 @@ module.exports = {
         });
     },
 
+    getAccidentById: function (accidentID) {
+        return new Promise(function (resolve, reject) {
+            mongoose.connect(url)
+                .then(function (result) {
+                    Accident.find({_id: accidentID}).limit(1).exec()
+                        .then(function (result) {
+                            console.log('done');
+                            resolve(result);
+                        })
+                        .catch(function (err) {
+                            console.log('err' + err);
+                            reject(err)
+                        });
+                }).catch(function (err) {
+                reject(err);
+            })
+        })
+    },
+
     getAccidents: function (lon, lat, radius) {
         return new Promise(function (resolve, reject) {
             // get the max distance or set it to 8 kilometers

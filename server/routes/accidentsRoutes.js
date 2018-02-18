@@ -79,6 +79,18 @@ router.post('/:accidentID/comments', function (req, res, err) {
         })
 });
 
+router.get('/:accidentID', function (req, res, err) {
+    accidentController.getById(req.params.accidentID)
+        .then(function (result) {
+            console.log(result);
+            res.send(result);
+        })
+        .catch(function (err) {
+            console.log("Error" + err);
+            res.status(500).send(err.message);
+        });
+});
+
 var handleError = function (error) {
 
 };
