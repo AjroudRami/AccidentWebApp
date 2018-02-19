@@ -7,64 +7,52 @@ var dbName = 'web';
 var limit = 3;
 var mongoose = require('mongoose');
 
+mongoose.connect(url).then(console.log).then(console.error)
+
 module.exports = {
 
     addComment: function (comment) {
         return new Promise(function (resolve, reject) {
-            mongoose.connect(url)
-                .then(function (result) {
-                    var commentSchema = new CommentSchema();
-                    commentSchema.accidentId = comment.accidentId;
-                    commentSchema.userId = comment.userId;
-                    commentSchema.title = comment.title;
-                    commentSchema.message = comment.message;
+          var commentSchema = new CommentSchema();
+          commentSchema.accidentId = comment.accidentId;
+          commentSchema.userId = comment.userId;
+          commentSchema.title = comment.title;
+          commentSchema.message = comment.message;
 
-                    commentSchema.save(function (err) {
-                        if (err) {
-                            console.log(err);
-                            reject(err);
-                        }
-                        console.log("inserted :");
-                        console.log(commentSchema);
-                    });
-                    var res = {
-                        id: commentSchema._id,
-                        accidentId: commentSchema.accidentId,
-                        userId: commentSchema.userId,
-                        title: commentSchema.title,
-                        message: commentSchema.message,
-                        date: commentSchema.date
-                    };
-                    resolve(res);
-                })
-                .catch(function (err) {
-                    reject(err);
-                    console.log(err);
-                });
+          commentSchema.save(function (err) {
+              if (err) {
+                  console.log(err);
+                  reject(err);
+              }
+              console.log("inserted :");
+              console.log(commentSchema);
+          });
+          var res = {
+              id: commentSchema._id,
+              accidentId: commentSchema.accidentId,
+              userId: commentSchema.userId,
+              title: commentSchema.title,
+              message: commentSchema.message,
+              date: commentSchema.date
+          };
+          resolve(res);
         });
     },
 
     listComments: function (accidentID) {
         return new Promise(function (resolve, reject) {
-            mongoose.connect(url)
-                .then(function (result) {
-                    var query = CommentSchema.find({});
-                    query.where('accidentId', accidentID);
-                    query.exec()
-                        .then(function (result) {
-                            console.log(result);
-                            var filtered = filterComments(result);
-                            resolve(filtered);
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                            reject(err);
-                        })
-                })
-                .catch(function (err) {
-                    console.log(err);
-                    reject(err);
-                })
+          var query = CommentSchema.find({});
+          query.where('accidentId', accidentID);
+          query.exec()
+              .then(function (result) {
+                  console.log(result);
+                  var filtered = filterComments(result);
+                  resolve(filtered);
+              })
+              .catch(function (err) {
+                  console.log(err);
+                  reject(err);
+              })
         });
     }
 };

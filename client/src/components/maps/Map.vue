@@ -1,5 +1,14 @@
 <style>
-
+.filter {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  cursor: pointer;
+}
+.button-hide {
+  background-color: darkcyan;
+  color: white;
+}
 </style>
 
 <template>
@@ -29,6 +38,12 @@
       </div>
     </b-modal>
     <createCrashModal ref="modalCreateCrash" :lat="lat" :lng="lng"></createCrashModal>
+    <button v-if="filter" @click="toggle()" class="filter button-show">
+      Afficher les anciennes données
+    </button>
+    <button v-else @click="toggle()" class="filter button-hide">
+      Cacher les anciennes données
+    </button>
   </div>
 </template>
 
@@ -52,6 +67,7 @@ export default {
       lat: 0,
       lng: 0,
       location: location,
+      filter: true,
       items: [
       ],
       height: window.innerHeight - 57
@@ -68,7 +84,7 @@ export default {
     },
     loadNearbyAccidents: function () {
       api.get(`/accidents?lat=${this.location.lat}&lon=${this.location.lng}&radius=3`).then(res => {
-        res.data.forEach(crash => {
+        res.data.filter(this.filterCrash).forEach(crash => {
           crash.lng = crash.loc[0]
           crash.lat = crash.loc[1]
           // Only add new crash
@@ -79,6 +95,9 @@ export default {
           }
         })
       }).catch(console.error)
+    },
+    filterCrash: function (crash) {
+      return !this.filter || new Date(crash.date).getFullYear() >= 2018
     },
     hideCrashModal: function (goToPageOfCrash) {
       this.$refs.crashModal.hide()
@@ -92,6 +111,11 @@ export default {
         this.lng = $event.latLng.lng()
         this.$refs.modalCreateCrash.show()
       }
+    },
+    toggle: function () {
+      this.filter = !this.filter
+      this.items.splice(0, this.items.length)
+      this.items.filter(this.filter).forEach(this.items.push)
     }
   },
   mounted: function () {

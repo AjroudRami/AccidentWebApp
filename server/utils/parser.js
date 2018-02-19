@@ -102,12 +102,13 @@ var cleanCSVFile = function(csvFilePath) {
 
                 element.placeName = csvrow.adr;
 
-                element.loc =
-                    csvrow.long.substring(0, 2) +
-                    "." + csvrow.long.substring(2, 20) +
-                    ", " +
-                    csvrow.lat.substring(0, 2) +
-                    "." + csvrow.lat.substring(2, 20);
+                element.loc = [
+                    parseFloat(csvrow.long.substring(0, 2) +
+                    "." + csvrow.long.substring(2, 20))
+                    ,
+                    parseFloat(csvrow.lat.substring(0, 2) +
+                    "." + csvrow.lat.substring(2, 20))
+                ]
 
                 element.seriousness = csvrow.col;
 
@@ -131,11 +132,9 @@ var cleanCSVFile = function(csvFilePath) {
                 insert(element)
                     .then(function (result) {
                         console.log(result);
-                        res.send(result);
                     })
                     .catch(function (err) {
                         console.log(err);
-                        res.status(500).json({message: err});
                     });
 
                 csvData.accidents.push(element);
