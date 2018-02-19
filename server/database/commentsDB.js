@@ -7,7 +7,7 @@ var dbName = 'web';
 var limit = 3;
 var mongoose = require('mongoose');
 
-mongoose.connect(url).then(console.log).then(console.error)
+mongoose.connect(url).then(console.log).catch(console.error);
 
 module.exports = {
 

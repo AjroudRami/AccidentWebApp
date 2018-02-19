@@ -5,7 +5,7 @@ var collectionName = 'accidents';
 var dbName = 'web';
 var mongoose = require('mongoose');
 
-mongoose.connect(url).then(console.log).then(console.error)
+mongoose.connect(url).then(console.log).catch(console.error);
 
 module.exports = {
     insertAccident: function (acc) {
