@@ -33,6 +33,9 @@ h1 {
         <span v-if="user.isAdmin" @click="deleteCrash()"><i class="far fa-trash-alt button"></i></span>
       </h1>
       <b-card>
+        <h4>
+          Liste des commentaires:
+        </h4>
         <b-media v-for="comment in crash.comments" :key="comment.id">
           <b-img slot="aside" blank blank-color="#ccc" width="64" alt="placeholder" />
           <div class="user">#{{comment.userId}}</div>
@@ -72,7 +75,7 @@ h1 {
         <b-button type="reset" variant="danger" @click="reset()">RAZ</b-button>
       </b-form>
       <gmap-map
-        :center="{lat: location.lat, lng: location.lng}"
+        :center="{lat: crash.lat, lng: crash.lng}"
         :zoom="17"
         :style="{height: '200px', width: '100%'}"
       >
