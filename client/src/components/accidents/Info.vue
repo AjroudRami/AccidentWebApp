@@ -16,15 +16,29 @@
 h1 {
   margin-left: 20px;
 }
+.button {
+   transition: all 0.2s ease;
+   cursor: pointer;
+   color: #cc0303;
+}
+.button:hover {
+  color: darkred;
+}
 </style>
 <template>
   <div>
     <div v-if="crash">
-      <h1>Accident sur {{crash.placeName}} (<i>Niv. {{crash.seriousness}}</i>)</h1>
+      <h1>
+        Accident sur {{crash.placeName}} (<i>Niv. {{crash.seriousness}}</i>)
+        <span v-if="user.isAdmin" @click="deleteCrash()"><i class="far fa-trash-alt button"></i></span>
+      </h1>
       <b-card>
+        <h4>
+          Liste des commentaires:
+        </h4>
         <b-media v-for="comment in crash.comments" :key="comment.id">
           <b-img slot="aside" blank blank-color="#ccc" width="64" alt="placeholder" />
-          <div class="user">#{{comment.userId.substring(comment.userId.length-4)}}</div>
+          <div class="user">#{{comment.userId}}</div>
           <div class="message">
             <h5 class="mt-0">{{comment.title}}</h5>
             <p>
@@ -35,17 +49,6 @@ h1 {
       </b-card>
       <b-form class="form">
         <h3>Ajouter un commentaire</h3>
-        <b-form-group id="name-group"
-                       label="Nom"
-                       label-for="name"
-                       description="Rentrez votre nom.">
-           <b-form-input id="name"
-                         type="text"
-                         v-model="name"
-                         required
-                         placeholder="Votre nom">
-           </b-form-input>
-         </b-form-group>
          <b-form-group id="title-group"
                       label="Title"
                       label-for="title"
@@ -72,7 +75,7 @@ h1 {
         <b-button type="reset" variant="danger" @click="reset()">RAZ</b-button>
       </b-form>
       <gmap-map
-        :center="{lat: location.lat, lng: location.lng}"
+        :center="{lat: crash.lat, lng: crash.lng}"
         :zoom="17"
         :style="{height: '200px', width: '100%'}"
       >
@@ -91,6 +94,7 @@ h1 {
 <script>
 import api from '../../services/api'
 import location from '../../services/location'
+import user from '../../services/user'
 
 export default {
   components: {
@@ -103,7 +107,8 @@ export default {
       crash: null,
       name: '',
       title: '',
-      message: ''
+      message: '',
+      user: user
     }
   },
   methods: {
@@ -111,7 +116,7 @@ export default {
       api.post(`/accidents/${this.id}/comments`, {
       	title: this.title,
         message: this.message,
-        userId: this.name.replace(/\ /g, '-')
+        userId: user.name
       }).then(res => {
         this.crash.comments.push(res.data)
       }).catch(err => {
@@ -123,6 +128,11 @@ export default {
       this.name = ''
       this.title = ''
       this.message = ''
+    },
+    deleteCrash: function () {
+      api.delete(`/accidents/${this.id}`).then(res => {
+        this.$router.push('/')
+      }).catch(console.error)
     }
   },
   mounted: function () {

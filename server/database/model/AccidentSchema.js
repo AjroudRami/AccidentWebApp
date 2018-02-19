@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var AccidentSchema = new Schema({
     loc: {
         type: [Number],
-        index: '2d'
+        index: '2dsphere'
     },
     placeName: {
         type: String,
