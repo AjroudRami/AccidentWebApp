@@ -1,8 +1,6 @@
 var Promise = require('promise');
 var Accident = require('./model/AccidentSchema');
-var url = "mongodb://database:27017/web";
-var collectionName = 'accidents';
-var dbName = 'web';
+const url = "mongodb://database:27017/web";
 var mongoose = require('mongoose');
 
 mongoose.connect(url).then(console.log).catch(console.error);
@@ -34,7 +32,7 @@ module.exports = {
 
     getAccidentById: function (accidentID) {
         return new Promise(function (resolve, reject) {
-          Accident.findOne({_id: accidentID}).limit(1).exec()
+          Accident.findOne({_id: accidentID}).exec()
             .then(function (result) {
                 console.log('done');
                 if (result != undefined) {

@@ -1,10 +1,6 @@
 var Promise = require('promise');
-var Accident = require('./model/AccidentSchema');
 var CommentSchema = require('./model/CommentSchema');
-var url = "mongodb://database:27017/web";
-var collectionName = 'accidents';
-var dbName = 'web';
-var limit = 3;
+const url = "mongodb://database:27017/web";
 var mongoose = require('mongoose');
 
 mongoose.connect(url).then(console.log).catch(console.error);
