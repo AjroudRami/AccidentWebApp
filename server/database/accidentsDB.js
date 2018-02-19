@@ -70,8 +70,14 @@ module.exports = {
                 .then(function (result) {
                     var query = Accident.find({
                         'loc': {
-                            $near: [lon, lat],
-                            $maxDistance: maxDistance
+                          $near: {
+                            $geometry: {
+                               type: "Point" ,
+                               coordinates: [ lon, lat ]
+                            },
+                            $maxDistance: maxDistance * 1000,
+                            $minDistance: 0
+                          }
                         }
                     }).limit(limit);
 

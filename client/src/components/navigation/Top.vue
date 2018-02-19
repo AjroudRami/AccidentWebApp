@@ -8,20 +8,32 @@
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav>
-        <b-nav-item>Accidents</b-nav-item>
+        
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
 
         <b-nav-item-dropdown right>
           <template slot="button-content">
-            <em>User</em>
+            <em>{{user.name}}</em>
           </template>
-          <b-dropdown-item href="#">Profil</b-dropdown-item>
-          <b-dropdown-item href="#">Se déconnecter</b-dropdown-item>
+          <b-dropdown-item v-if="user.isAdmin" @click="user.changeUser('John', false)">Se connecter en tant que John</b-dropdown-item>
+          <b-dropdown-item v-else @click="user.changeUser('Manager Bob', true)">Se connecter en tant qu'administrateur</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
     </b-collapse>
   </b-navbar>
 </template>
+
+<script>
+import user from '../../services/user'
+
+export default {
+  data: function () {
+    return {
+      user: user
+    }
+  }
+}
+</script>
