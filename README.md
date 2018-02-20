@@ -1,4 +1,22 @@
-# ServerSideProject
+# Web server project
+
+## Prerequisites
+
+- Docker
+- Docker-compose
+
+### Instructions
+
+- Clone this repository
+- Run the newt commands in the root directory (same as docker-compose.yml)
+```bash 
+$ docker-compose build
+$ docker-compose up
+```
+- Use this command to stop the server
+```bash
+$ docker-compose down
+```
 
 ## API Description
 
