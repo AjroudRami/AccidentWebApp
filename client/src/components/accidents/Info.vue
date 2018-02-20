@@ -26,13 +26,26 @@ h1 {
 }
 </style>
 <template>
-  <div>
+  <div style="padding: 50px; background-color: darkslateblue">
     <div v-if="crash">
-      <h1>
-        Accident sur {{crash.placeName}} (<i>Niv. {{crash.seriousness}}</i>)
-        <span v-if="user.isAdmin" @click="deleteCrash()"><i class="far fa-trash-alt button"></i></span>
-      </h1>
-      <b-card>
+      <b-card style="padding: 20px; margin-bottom: 20px">
+        <h1>
+          Accident sur {{crash.placeName}} (<i>Niv. {{crash.seriousness}}</i>)
+          <span v-if="user.isAdmin" @click="deleteCrash()"><i class="far fa-trash-alt button"></i></span>
+        </h1>
+        <gmap-map
+                :center="{lat: crash.lat, lng: crash.lng}"
+                :zoom="17"
+                :style="{height: '200px', width: '100%'}"
+        >
+          <gmap-marker :position="crash" icon="/src/images/crash.png">
+          </gmap-marker>
+          <gmap-marker :position="location" icon="/src/images/car.png">
+          </gmap-marker>
+        </gmap-map>
+      </b-card>
+
+      <b-card style="padding:20px; margin-bottom: 20px">
         <h4>
           Liste des commentaires:
         </h4>
@@ -47,43 +60,35 @@ h1 {
           </div>
         </b-media>
       </b-card>
-      <b-form class="form">
-        <h3>Ajouter un commentaire</h3>
-         <b-form-group id="title-group"
-                      label="Title"
-                      label-for="title"
-                      description="Le titre de votre message.">
-          <b-form-input id="title"
-                        type="text"
-                        v-model="title"
-                        required
-                        placeholder="Titre">
-          </b-form-input>
-        </b-form-group>
-        <b-form-group id="message-group"
-                     label="Message"
-                     label-for="message"
-                     description="Votre message.">
-         <b-form-input id="message"
-                       type="text"
-                       v-model="message"
-                       required
-                       placeholder="Message">
-         </b-form-input>
-        </b-form-group>
-        <b-button type="submit" variant="primary" @click="send()">Envoyer</b-button>
-        <b-button type="reset" variant="danger" @click="reset()">RAZ</b-button>
-      </b-form>
-      <gmap-map
-        :center="{lat: crash.lat, lng: crash.lng}"
-        :zoom="17"
-        :style="{height: '200px', width: '100%'}"
-      >
-        <gmap-marker :position="crash" icon="/src/images/crash.png">
-        </gmap-marker>
-        <gmap-marker :position="location" icon="/src/images/car.png">
-        </gmap-marker>
-      </gmap-map>
+      <b-card style="margin-bottom: 20px">
+        <b-form class="form">
+          <h3>Ajouter un commentaire</h3>
+           <b-form-group id="title-group"
+                        label="Title"
+                        label-for="title"
+                        description="Le titre de votre message.">
+            <b-form-input id="title"
+                          type="text"
+                          v-model="title"
+                          required
+                          placeholder="Titre">
+            </b-form-input>
+          </b-form-group>
+          <b-form-group id="message-group"
+                       label="Message"
+                       label-for="message"
+                       description="Votre message.">
+           <b-form-input id="message"
+                         type="text"
+                         v-model="message"
+                         required
+                         placeholder="Message">
+           </b-form-input>
+          </b-form-group>
+          <b-button type="submit" variant="primary" @click="send()">Envoyer</b-button>
+          <b-button type="reset" variant="danger" @click="reset()">RAZ</b-button>
+        </b-form>
+      </b-card>
     </div>
     <div v-else>
       Chargement de l'accident
@@ -121,12 +126,12 @@ export default {
         this.crash.comments.push(res.data)
       }).catch(err => {
         this.$router.push('/')
-      })
+      });
       this.reset()
     },
     reset: function () {
-      this.name = ''
-      this.title = ''
+      this.name = '';
+      this.title = '';
       this.message = ''
     },
     deleteCrash: function () {
@@ -136,7 +141,7 @@ export default {
     }
   },
   mounted: function () {
-    this.id = this.$route.params.id
+    this.id = this.$route.params.id;
     api.get(`/accidents/${this.id}`).then(res => {
       this.crash = {
         lng: res.data.loc[0],
@@ -144,7 +149,7 @@ export default {
         seriousness: res.data.seriousness,
         placeName: res.data.placeName,
         comments: []
-      }
+      };
       // GET ACCIDENT
       api.get(`/accidents/${this.id}/comments`).then(res => {
         this.crash.comments = res.data

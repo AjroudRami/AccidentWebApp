@@ -35,7 +35,6 @@
                       placeholder="Latitude">
         </b-form-input>
       </b-form-group>
-      </b-form-group>
          <b-form-group id="lng-group"
                       label="Longitude"
                       label-for="lng"
@@ -47,7 +46,6 @@
                         placeholder="Longitude">
           </b-form-input>
         </b-form-group>
-      </b-form-group>
     </b-form>
      <div>
        <b-btn class="mt-3" variant="outline-danger" @click="createCrash()">Créer un nouvel accident</b-btn>
