@@ -10,17 +10,6 @@ services:
     ports:
       - "27017:27017"
 
-  frontend:
-    container_name: frontend
-    build:
-      context: ./client
-    depends_on:
-      - server
-    ports:
-      - "8080:8080"
-      - "8181:8181"
-      - "80:80"
-
   server:
     container_name: server
     build:

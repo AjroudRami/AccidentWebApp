@@ -8,23 +8,31 @@
 ## Instructions
 
 - Clone this repository
-- Run the newt commands in the root directory (same as docker-compose.yml)
+- Run the next commands in the root directory (same as docker-compose.yml)
 ```bash 
 $ docker-compose build
+````
+- To run the backend server use:
+```bash
 $ docker-compose up
 ```
-- Use this command to stop the server
+- Use this command to stop the backend server
 ```bash
 $ docker-compose down
 ```
+
+- To run the frontend server run this commands in the `client` directory:
+```bash
+$ npm install
+$ npm run dev
+```
+
+## Tests
+While the backend server is running:
 - Open new terminal and use this commands to launch the 
 tests
 ```bash
-$ docker ps
-```
-get the id container of "serversideproject_server" and use it in the following command. (Remplace conntainer_ID by this one).
-```bash
-$ sudo docker exec -i -t container_ID /bin/bash
+$ sudo docker exec -i -t server /bin/bash
 $ npm test
 ```
 
