@@ -17,6 +17,16 @@ $ docker-compose up
 ```bash
 $ docker-compose down
 ```
+- Open new terminal and use this commands to launch the 
+tests
+```bash
+$ docker ps
+```
+get the id container of "serversideproject_server" and use it in the following command. (Remplace conntainer_ID by this one).
+```bash
+$ sudo docker exec -i -t container_ID /bin/bash
+$ npm test
+```
 
 ## API Description
 
