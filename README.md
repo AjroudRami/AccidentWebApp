@@ -1,11 +1,11 @@
-# Web server project
+# Web project
 
 ## Prerequisites
 
 - Docker
 - Docker-compose
 
-### Instructions
+## Instructions
 
 - Clone this repository
 - Run the newt commands in the root directory (same as docker-compose.yml)
@@ -21,8 +21,8 @@ $ docker-compose down
 ## API Description
 
 ### `GET /api/accidents/`
-
 #### User-Permission: **PUBLIC**
+
 Retrieve accidents for a given area.
 
 #### Query string parameters:
@@ -44,12 +44,11 @@ Retrieve accidents for a given area.
 ```
 
 ### `POST /api/accident/`
-
 #### User-Permission: **MANAGER**
+
 Create a new accident
 
 #### Request Body
-
 ```json
 { 
     "loc": [10.25154, 40.25544],    //loc is [longitude, lattitude] couple
@@ -59,7 +58,6 @@ Create a new accident
 ```
 
 #### Response body
-
 ```json
 { 
     "id": "eb1235a46",
@@ -72,6 +70,7 @@ Create a new accident
 
 ### `DELETE /api/accident/{accident_id}`
 #### User-Permission: **MANAGER**
+
 Delete an accident from the database
 
 #### Response body
@@ -82,6 +81,7 @@ If everything is OK:
     "ok": 1
 }
 ````
+
 If the id is not found: status 404
 
 ````json
@@ -124,14 +124,11 @@ Retrieve comments for a given accident
 Post a comment for a given accident
 
 #### Request body
-
 ```json
-
 {
     "title": "omg very dangerous",
     "message": "Be very carreful it is really dangerous ! Oh my god !"
 }
-
 ```
 
 #### Response body
@@ -144,3 +141,33 @@ Post a comment for a given accident
     "date": "2018-02-15T14:24:02.216Z"
 }
 ```
+
+## Contributors
+
+#### Rami AJROUD
+###### rami.ajroud@etu.unice.fr
+- Work on server side :
+    - API
+    - data storage in a NoSQL database (MongoDB)
+    - people access manager
+    - tests
+- Work on client side
+
+#### Yasin EROGLU
+###### yasin.eroglu@etu.unice.fr
+- Work on server side :
+    - open data parser
+    - data filter and cleaner
+    - data storage in a NoSQL database (MongoDB)
+    - tests
+- Work on client side
+
+#### Günther JUNGBLUTH
+###### gunther.jungbluth@etu.unice.fr
+- Work on client side :
+    - data display
+    - user interface (users and managers)
+    - accidents and comments manipulation
+    - real-time mode
+- Work on server side
+
