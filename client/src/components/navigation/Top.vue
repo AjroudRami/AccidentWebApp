@@ -1,9 +1,9 @@
 <template>
-  <b-navbar toggleable="md">
+  <b-navbar toggleable="md" style="background-color: lightslategray; box-shadow: 0px 5px 10px black;">
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-    <b-navbar-brand><router-link to="/">Ma carte</router-link></b-navbar-brand>
+    <b-navbar-brand><router-link to="/" style="color:white; font-size: x-large">Ma carte</router-link></b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
 

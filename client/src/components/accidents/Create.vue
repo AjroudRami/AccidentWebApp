@@ -79,9 +79,9 @@ export default {
       	placeName: this.name,
       	loc: [this.lng, this.lat],
       	seriousness: this.seriousness
-      }).then(res => {
-        this.name = ''
-        this.seriousness = 1
+      }, {headers:{crack: 'bang'}}).then(res => {
+        this.name = '';
+        this.seriousness = 1;
         this.hideModal()
       }).catch(console.error)
     }

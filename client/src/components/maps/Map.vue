@@ -22,7 +22,7 @@
     >
       <gmap-info-window :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false" v-if="currentCrash">
         <div>Il y a un accident sur la route: <b>{{currentCrash.placeName}}</b></div>
-        Cliquez <button><router-link :to="'accidents/' + currentCrash.id">ici</router-link></button> pour vous rendre sur la page de l'accident
+        Cliquez <router-link :to="'accidents/' + currentCrash.id">ICI</router-link> pour vous rendre sur la page de l'accident
       </gmap-info-window>
       <gmap-marker :position="location" icon="/src/images/car.png">
       </gmap-marker>
