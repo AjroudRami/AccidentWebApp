@@ -179,6 +179,19 @@ Retrieve accident for a given id
 }
 ```
 
+## Parser
+
+Open data from the administration can be use.
+Here you can test it thanks to this script which will use caracteristiques_2016.csv in root directory.
+
+To run this script run this commands in the `server` directory :
+
+```textmate
+node fillthedataba.js
+```
+
+The database will be auto filled. To display this data in the frontend, you can use the button `afficher les anciennes données` in the bottom left.
+
 ## Tools
 
 - Postman (https://www.getpostman.com/) : tool for test ours API by sending requests. 
