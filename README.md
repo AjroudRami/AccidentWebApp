@@ -43,7 +43,7 @@ Retrieve accidents for a given area.
 ]
 ```
 
-### `POST /api/accident/`
+### `POST /api/accidents/`
 #### User-Permission: **MANAGER**
 
 Create a new accident
@@ -68,7 +68,7 @@ Create a new accident
 }
 ```
 
-### `DELETE /api/accident/{accident_id}`
+### `DELETE /api/accidents/{accident_id}`
 #### User-Permission: **MANAGER**
 
 Delete an accident from the database
@@ -90,7 +90,7 @@ If the id is not found: status 404
 }
 ````
 
-### `GET /api/accident/{accident_id}/comments`
+### `GET /api/accidents/{accident_id}/comments`
 #### User-Permission: **PUBLIC**
 
 Retrieve comments for a given accident
@@ -118,7 +118,7 @@ Retrieve comments for a given accident
 ]
 ```
 
-### `POST /api/accident/{accident_id}/comments`
+### `POST /api/accidents/{accident_id}/comments`
 #### User-Permission: **PUBLIC**
 
 Post a comment for a given accident
@@ -138,6 +138,25 @@ Post a comment for a given accident
     "user_id": "ab15648",
     "title": "omg very dangerous",
     "message": "Be very carreful it is really dangerous ! Oh my god !",
+    "date": "2018-02-15T14:24:02.216Z"
+}
+```
+
+### `GET /api/accidents/{accident_id}`
+#### User-Permission: **PUBLIC**
+
+Retrieve accident for a given id
+
+#### Query string parameters
+- accident_id : the accident to get.
+
+#### Response
+```json
+{ 
+    "id": "eb1235a43",
+    "loc": [43.6237776, 7.0473906],
+    "placeName": "Route des Dolines",
+    "seriousness": 3,
     "date": "2018-02-15T14:24:02.216Z"
 }
 ```
